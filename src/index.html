@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3d-mapbox</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="experience">
+      <canvas class="webgl"></canvas>
+    </div>
+    <div class="hud" hidden>
+      <p class="hud-hint">
+        Press <kbd>F</kbd> to Toggle Fly Mode, <kbd>WASD</kbd> to move
+      </p>
+      <label class="hud-toggle">
+        <input type="checkbox" class="hud-wireframe" />
+        Wireframe
+      </label>
+    </div>
+    <div class="attribution">
+      <a href="https://www.mapbox.com/about/maps/" target="_blank">© Mapbox</a>
+      <a href="https://www.openstreetmap.org/copyright" target="_blank"
+        >© OpenStreetMap</a
+      >
+      <a href="https://www.maxar.com/" target="_blank">© Maxar</a>
+    </div>
+    <script type="module" src="./script.js"></script>
+  </body>
+</html>

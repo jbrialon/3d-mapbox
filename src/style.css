@@ -1,0 +1,92 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  overflow: hidden;
+}
+
+body {
+  color: #000;
+  font-family: Monospace;
+  font-size: 13px;
+  line-height: 24px;
+}
+
+a {
+  color: #2983ff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.experience {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: var(--vh);
+}
+
+.webgl {
+  position: absolute;
+  top: 0;
+  left: 0;
+  outline: none;
+}
+
+.hud {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 1;
+}
+
+.hud[hidden] {
+  display: none;
+}
+
+.hud kbd {
+  padding: 0 6px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  background: #fff;
+  font-family: inherit;
+}
+
+.hud-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.attribution {
+  position: fixed;
+  right: 8px;
+  bottom: 4px;
+  display: flex;
+  gap: 8px;
+  font-size: 11px;
+  z-index: 1;
+}
+
+.attribution a {
+  color: rgba(0, 0, 0, 0.7);
+}
