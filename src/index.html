@@ -14,9 +14,30 @@
       <p class="hud-hint">
         Press <kbd>F</kbd> to Toggle Fly Mode, <kbd>WASD</kbd> to move
       </p>
-      <label class="hud-toggle">
-        <input type="checkbox" class="hud-wireframe" />
-        Wireframe
+      <fieldset class="hud-styles">
+        <label>
+          <input type="radio" name="hud-style" value="satellite" />
+          Satellite
+        </label>
+        <label>
+          <input type="radio" name="hud-style" value="shaded" />
+          Shaded
+        </label>
+        <label>
+          <input type="radio" name="hud-style" value="wireframe" />
+          Wireframe
+        </label>
+      </fieldset>
+      <label class="hud-slider">
+        Relief
+        <input
+          type="range"
+          class="hud-exaggeration"
+          min="0"
+          max="5"
+          step="0.05"
+        />
+        <output class="hud-exaggeration-value"></output>
       </label>
     </div>
     <div class="attribution">

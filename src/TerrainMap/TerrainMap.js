@@ -18,6 +18,8 @@ import { createTerrainMaterial } from "./tiles/terrainMaterial.js";
 // Width of one tile in scene units
 export const TILE_WORLD = 100;
 
+export const STYLES = ["satellite", "shaded", "wireframe"];
+
 export default class TerrainMap extends THREE.Group {
   constructor({
     accessToken,
@@ -30,8 +32,7 @@ export default class TerrainMap extends THREE.Group {
     satelliteZoomOffset = 1,
     // Keeps the photo crisp when looking across the ground instead of straight down, up to 16
     anisotropy = 8,
-    // Shows the triangles of the ground instead of a filled surface
-    wireframe = false,
+    style = "satellite",
   } = {}) {
     super();
 
@@ -40,8 +41,9 @@ export default class TerrainMap extends THREE.Group {
     this.radius = radius;
     this.satelliteZoomOffset = satelliteZoomOffset;
     this.anisotropy = anisotropy;
-    this.wireframe = wireframe;
     this.exaggeration = uniform(exaggeration);
+    // Shared by every tile material, so switching style doesn't rebuild the shaders
+    this.shaded = uniform(0);
     this.boundsExaggeration = exaggeration;
 
     this.tileCount = 2 ** zoom;
@@ -59,6 +61,7 @@ export default class TerrainMap extends THREE.Group {
 
     this.geometries = new Map();
     this.tiles = new Map();
+    this.setStyle(style);
     this.forward = new THREE.Vector3();
     this.focusPoint = new THREE.Vector3();
     // Counts every time the ground changes, so things sitting on it know to check their height again
@@ -118,10 +121,17 @@ export default class TerrainMap extends THREE.Group {
     );
   }
 
-  setWireframe(wireframe) {
-    this.wireframe = wireframe;
+  setStyle(style) {
+    if (!STYLES.includes(style)) {
+      throw new Error(`Unknown style "${style}", use one of: ${STYLES}`);
+    }
+
+    this.style = style;
+    this.shaded.value = style === "shaded" ? 1 : 0;
+
+    const wireframe = style === "wireframe";
     for (const tile of this.tiles.values()) {
-      if (!tile.mesh) continue;
+      if (!tile.mesh || tile.mesh.material.wireframe === wireframe) continue;
       tile.mesh.material.wireframe = wireframe;
       tile.mesh.material.needsUpdate = true;
     }
@@ -288,10 +298,12 @@ export default class TerrainMap extends THREE.Group {
         heightTexture: terrain.texture,
         satelliteTexture,
         size: terrain.size,
+        tileWorld: TILE_WORLD,
         metersToWorld: this.metersToWorld,
         exaggeration: this.exaggeration,
+        shaded: this.shaded,
       });
-      material.wireframe = this.wireframe;
+      material.wireframe = this.style === "wireframe";
 
       const mesh = new THREE.Mesh(this.getGeometry(terrain.size), material);
       mesh.position.set(

@@ -39,7 +39,7 @@ export default class Loader {
 
   setMesh() {
     this.mesh = new THREE.Mesh(this.geometry, this.material);
-    this.mesh.frustumCulled = true;
+    this.mesh.frustumCulled = false;
     this.mesh.renderOrder = 999; // Render on top of everything
     this.scene.add(this.mesh);
   }

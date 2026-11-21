@@ -14,8 +14,7 @@ export default class Renderer {
     this.options = {
       // Same as the sky horizon, it's what the loader fades from
       clearColor: 0xc5d3dd,
-      // Off so the paper and ink colors show exactly as picked
-      toneMapping: THREE.NoToneMapping,
+      toneMapping: THREE.NeutralToneMapping,
       toneMappingExposure: 1,
     };
   }

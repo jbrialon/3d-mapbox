@@ -26,7 +26,25 @@ export default class World {
 
     // Show Experience
     this.loader.hideLoader();
-    this.hud = new Hud(this.topography.terrainMap);
+    this.setHud();
+  }
+
+  setHud() {
+    const terrainMap = this.topography.terrainMap;
+
+    this.hud = new Hud({
+      style: terrainMap.style,
+      exaggeration: terrainMap.exaggeration.value,
+    });
+
+    this.hud.on("style", (style) => {
+      terrainMap.setStyle(style);
+    });
+
+    // terrainMap.update() notices the new value and resizes the tile bounds
+    this.hud.on("exaggeration", (exaggeration) => {
+      terrainMap.exaggeration.value = exaggeration;
+    });
   }
 
   update() {
