@@ -10,35 +10,69 @@
     <div class="experience">
       <canvas class="webgl"></canvas>
     </div>
-    <div class="hud" hidden>
-      <p class="hud-hint">
-        Press <kbd>F</kbd> to Toggle Fly Mode, <kbd>WASD</kbd> to move
-      </p>
-      <fieldset class="hud-styles">
-        <label>
-          <input type="radio" name="hud-style" value="satellite" />
-          Satellite
+    <div class="hud" data-mode="orbit" hidden>
+      <div class="hud-panel">
+        <header class="hud-header">
+          <p class="hud-meta"><span>3d-mapbox</span><span>Proof of concept</span></p>
+          <h1 class="hud-title">
+            3D maps in three.js built from Mapbox terrain-RGB tiles
+          </h1>
+        </header>
+        <fieldset class="hud-styles">
+          <legend class="visually-hidden">Map style</legend>
+          <label>
+            <input type="radio" name="hud-style" value="satellite" />
+            Satellite
+          </label>
+          <label>
+            <input type="radio" name="hud-style" value="shaded" />
+            Shaded
+          </label>
+          <label>
+            <input type="radio" name="hud-style" value="wireframe" />
+            Wireframe
+          </label>
+        </fieldset>
+        <label class="hud-slider">
+          <span class="hud-slider-head">
+            Relief exaggeration
+            <output class="hud-exaggeration-value"></output>
+          </span>
+          <span class="hud-slider-row">
+            <svg class="hud-relief-icon" viewBox="0 0 24 16" aria-hidden="true">
+              <path d="M1 14 9 10l4 2 4-3 6 5Z" />
+            </svg>
+            <input
+              type="range"
+              class="hud-exaggeration"
+              min="0"
+              max="5"
+              step="0.05"
+            />
+            <svg class="hud-relief-icon" viewBox="0 0 24 16" aria-hidden="true">
+              <path d="M1 15 8 3l3 5 3-6 9 13Z" />
+            </svg>
+          </span>
         </label>
-        <label>
-          <input type="radio" name="hud-style" value="shaded" />
-          Shaded
-        </label>
-        <label>
-          <input type="radio" name="hud-style" value="wireframe" />
-          Wireframe
-        </label>
-      </fieldset>
-      <label class="hud-slider">
-        Relief
-        <input
-          type="range"
-          class="hud-exaggeration"
-          min="0"
-          max="5"
-          step="0.05"
-        />
-        <output class="hud-exaggeration-value"></output>
-      </label>
+      </div>
+      <div class="hud-modes" role="group" aria-label="Camera mode">
+        <button type="button" class="hud-mode" data-mode="orbit" aria-pressed="true">
+          Orbit
+        </button>
+        <button type="button" class="hud-mode" data-mode="fly" aria-pressed="false">
+          Fly <kbd>F</kbd>
+        </button>
+      </div>
+      <div class="hud-fly" aria-hidden="true">
+        <div class="hud-crosshair"></div>
+        <p class="hud-keys">
+          <span><kbd>WASD</kbd> move</span>
+          <span><kbd>Q</kbd><kbd>E</kbd> down / up</span>
+          <span><kbd>Shift</kbd> boost</span>
+          <span><kbd>Scroll</kbd> speed</span>
+          <span><kbd>F</kbd> exit</span>
+        </p>
+      </div>
     </div>
     <div class="attribution">
       <a href="https://www.mapbox.com/about/maps/" target="_blank">© Mapbox</a>

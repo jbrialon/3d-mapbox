@@ -41,10 +41,17 @@ export default class World {
       terrainMap.setStyle(style);
     });
 
-    // terrainMap.update() notices the new value and resizes the tile bounds
+    // terrainMap.update()
     this.hud.on("exaggeration", (exaggeration) => {
       terrainMap.exaggeration.value = exaggeration;
     });
+
+    // Orbit / Fly switch
+    const fly = this.experience.camera.fly;
+    this.hud.setMode(fly.isLocked ? "fly" : "orbit");
+    this.hud.on("fly", () => fly.lock());
+    fly.addEventListener("lock", () => this.hud.setMode("fly"));
+    fly.addEventListener("unlock", () => this.hud.setMode("orbit"));
   }
 
   update() {
